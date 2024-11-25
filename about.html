@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Quicksand:wght@300..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <title>About Me</title>
+    <style>
+        /* CSS */
+    
+
+        .cont{
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .backg{
+            background-image: url(img/background.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center;
+            padding: 50px 20px;
+            height: 190px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .head {
+            text-align: left;
+            padding-left: 150px;
+            margin: 20px 0;
+            height: 100px;
+            margin-top: 100px;
+            margin-bottom: 160px;
+            font-size: 70px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: #160329;
+        }
+
+        .profile {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .image img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .description {
+            max-width: 600px;
+            margin-left: 20px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .description h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            color: #555;
+            text-align: left;
+
+        }
+
+        .description h3 {
+            font-size: 25px;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+        }
+        
+
+        .description p {
+            font-size: 17px;
+            color: #666;
+            margin-left: 30px;
+            margin-right: 35px;
+            text-align: left;
+            
+        }
+
+        .cv-section {
+            text-align: center;
+            margin: 40px 0;
+            margin-top: 100px;
+        }
+
+        .cv-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .cv img {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #160329;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #4E2A81;
+        }
+    </style>
+</head>
+<body>
+    
+        
+            
+       
+        <header class="hero-section"  style="height: 50px;">
+            <nav class="navbar">
+                <ul>
+              <li><a href="index.html">Portfolio</a></li>
+              <li><a href="about.html">About</a></li>
+                 
+                </ul></nav>
+        </header>
+   
+        <div class="cont">
+        <h1 class="head" >About.</h1>
+       
+        <div class="profile">
+            <div class="image">
+                <img src="img/bubble.jpg" alt="Profile Picture">
+            </div>
+
+            <div class="description">
+                <h3>Hello, I'm Joud. It's so great to meet you! :)</h3>
+                <h2>Who I Am</h2>
+                <p>My name is Joud, a UX/UI specialist with a background in Human-Computer Interaction.
+                     I possess strong skills in problem-solving, teamwork, and communication. 
+
+                     I am dedicated to improving my expertise and making a positive impact by designing user-friendly apps and websites,
+                     focusing on delivering high-quality results and contributing effectively to the teams I work with.
+                 </p>
+            </div>
+        </div>
+
+        <section class="cv-section">
+            <h2>My CV</h2>
+            <div class="cv">
+                <img src="img/CV.jpg" alt="CV Image">
+            </div>
+            <a href="img/CV.pdf" class="download-btn" download>Download CV</a>
+        </section>
+    </div>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 Joud Portfolio. All rights reserved.</p>
+        <div class="social-links">
+           
+            <a href="https://www.linkedin.com/in/joud-alshaikh-b85b61273">LinkedIn</a> | 
+            <a href="mailto:joudalshaikh24@gmail.com">Email</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
