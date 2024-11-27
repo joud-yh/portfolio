@@ -246,3 +246,61 @@ font-weight: bold;
 .footer .social-links a:hover {
     color: white;
 }
+
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column; /* تحويل القائمة إلى قائمة عمودية */
+        align-items: center;
+        padding: 0;
+    }
+
+    .navbar ul li {
+        margin: 10px 0; /* تباعد بين العناصر العمودية */
+    }
+
+    .hero-section {
+        padding: 20px; /* تقليل الهوامش */
+        height: auto; /* ارتفاع ديناميكي */
+    }
+
+    .hero-section h1 {
+        font-size: 28px; /* تصغير حجم الخط */
+        margin: 10px; /* تقليل الهوامش الجانبية */
+    }
+}
+
+@media (max-width: 768px) {
+    .work-grid {
+        grid-template-columns: 1fr; /* عنصر واحد في كل صف */
+    }
+
+    .work-item {
+        margin: 10px; /* مساحة إضافية بين العناصر */
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 10px; /* تقليل المسافات */
+    }
+
+    .footer p {
+        font-size: 0.8rem; /* تصغير النص */
+    }
+
+    .social-links a {
+        font-size: 0.9rem; /* تصغير الأيقونات */
+        margin: 0 8px; /* تقليل الهوامش بين الروابط */
+    }
+}
+
+@media (max-width: 768px) {
+    .project-btn {
+        font-size: 16px; /* تصغير النص */
+        padding: 8px 15px; /* تعديل حجم الزر */
+    }
+
+    .portfolio h2 {
+        font-size: 1.5rem; /* تصغير العنوان */
+    }
+}
