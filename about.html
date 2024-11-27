@@ -135,6 +135,73 @@
         .download-btn:hover {
             background-color: #4E2A81;
         }
+
+        
+        @media (max-width: 768px) {
+    /* تحسين الصورة الشخصية */
+    .image img {
+        width: 150px; /* تقليل حجم الصورة ليتناسب مع الشاشات الصغيرة */
+        height: 150px;
+        margin-bottom: 20px; /* إضافة مسافة بين الصورة والنصوص */
+    }
+}
+
+    /* تحسين النصوص */
+    .description {
+        margin: 10px 0;
+        padding: 0 20px; /* إضافة مساحة داخلية للنص */
+        text-align: center; /* توسيط النصوص */
+    }
+
+    .description h2 {
+        font-size: 1.5rem; /* تصغير حجم العنوان */
+    }
+
+    .description h3 {
+        font-size: 1.2rem; /* تصغير حجم العنوان الترحيبي */
+    }
+
+    .description p {
+        font-size: 1rem; /* تحسين حجم النص */
+        line-height: 1.6; /* تحسين تباعد الأسطر */
+    }
+
+    /* تحسين قسم السيرة الذاتية */
+    .cv img {
+        width: 100%; /* استخدام العرض الكامل للشاشة */
+        max-width: 90%; /* ضمان الحواف */
+        margin: 20px auto; /* توسيط الصورة */
+    }
+
+    .download-btn {
+        font-size: 0.9rem; /* تصغير حجم النص */
+        padding: 10px 15px; /* تعديل حجم الزر */
+    }
+
+    /* تحسين العنوان الرئيسي */
+    .head {
+        font-size: 2rem; /* تصغير العنوان */
+        text-align: center; /* توسيطه */
+        margin: 20px 0; /* تقليل الهوامش */
+    }
+
+    /* تحسين الهيدر والقائمة */
+    @media (max-width: 768px) {
+    .navbar ul {
+        display: flex; /* تأكد من استمرار العرض الأفقي */
+        flex-direction: row; /* الحفاظ على العناصر بجانب بعضها */
+        justify-content: space-around; /* توزيع متساوٍ بين العناصر */
+        padding: 0;
+    }
+
+    .navbar ul li {
+        margin: 0 10px; /* تباعد أفقي صغير */
+    }
+
+    .navbar ul li a {
+        font-size: 0.9rem; /* تعديل حجم النص ليكون مناسبًا */
+    }
+}
     </style>
 </head>
 <body>
