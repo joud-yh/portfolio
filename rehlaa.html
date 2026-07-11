@@ -783,52 +783,75 @@
     }
 
     /* =========================================================
-       VISUALS — real app screenshots
-       Masonry layout · full screens shown (no crop) · smaller size
-       Caption slides up on hover · dots for multi-screen cards
+       VISUALS — phone-mockup screens · caption sits BELOW the frame
        ========================================================= */
     .visuals-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 240px));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 260px));
       justify-content: center;
       gap: 1.6rem 1.4rem;
-      max-width: 1120px;
-      margin: 0 auto;
     }
+    /* Card = vertical stack: frame, then dots, then caption. Nothing overlaps the screen. */
     .visual-card {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.7rem;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transition: transform 0.45s var(--ease-smooth);
+    }
+    .visual-card:hover { transform: translateY(-5px); }
+    /* Phone shell — screens fill it full-bleed, never cropped */
+    .v-stack {
+      order: 1;
+      position: relative;
+      width: 100%;
       aspect-ratio: 393 / 852;
-      border-radius: 22px;
       overflow: hidden;
-      /* Rehlaa navy fallback (shows only if an image is missing) */
+      border-radius: 22px;
       background:
         radial-gradient(circle at 50% 0%, rgba(151, 143, 201, 0.16) 0%, transparent 55%),
         linear-gradient(160deg, #122a4b 0%, #0F2746 60%, #0c1f3a 100%);
       border: 1px solid var(--glass-border);
-      transition: transform 0.45s var(--ease-smooth), border-color 0.3s ease, box-shadow 0.4s ease;
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.06),
         0 16px 40px -18px rgba(0, 0, 0, 0.5);
+      transition: border-color 0.3s ease, box-shadow 0.4s ease;
     }
-    .visual-card:hover {
-      transform: translateY(-5px);
+    .visual-card:hover .v-stack {
       border-color: var(--neon-soft);
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.08),
         0 22px 50px -18px rgba(0, 0, 0, 0.55),
         0 0 24px rgba(0, 255, 145, 0.18);
     }
-    .visual-card:focus-within { border-color: var(--neon-soft); }
-
-    /* The real screenshot — fills the frame; scrolls down on hover */
+    .v-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 0.9s var(--ease-smooth), transform 1.2s var(--ease-smooth);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(151, 143, 201, 0.16) 0%, transparent 55%),
+        linear-gradient(160deg, #122a4b 0%, #0F2746 60%, #0c1f3a 100%);
+    }
+    .v-slide.is-active { opacity: 1; transform: scale(1); }
     .v-shot {
       position: absolute;
       inset: 0;
-      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: 50% 0;
+      display: block;
+      border-radius: inherit;
       transition: object-position 0.6s var(--ease-smooth);
     }
     .visual-card:hover .v-shot,
@@ -836,84 +859,48 @@
       object-position: 50% 100%;
       transition: object-position 6s linear;
     }
-
-    /* Multi-screen card: fixed box so the two screens cross-fade in place */
-    .visual-card.has-slides { aspect-ratio: 393 / 852; }
-    .visual-card.has-slides .v-stack { position: absolute; inset: 0; }
-    .visual-card.has-slides .v-slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transform: scale(1.01);
-      transition: opacity 0.9s var(--ease-smooth), transform 1.2s var(--ease-smooth);
-    }
-    .visual-card.has-slides .v-slide.is-active { opacity: 1; transform: scale(1); }
-    .visual-card.has-slides .v-shot { width: 100%; height: 100%; }
-
-    /* Slide indicator dots (only on multi-screen cards) */
+    /* Slide indicator — small bars UNDER the frame, always visible */
     .v-dots {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
+      order: 2;
       display: flex;
+      justify-content: center;
       gap: 5px;
-      z-index: 4;
-      transition: opacity 0.3s ease;
     }
     .v-dots span {
-      width: 16px;
+      width: 18px;
       height: 3px;
       border-radius: 2px;
-      background: rgba(255, 255, 255, 0.4);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+      background: rgba(255, 255, 255, 0.35);
       transition: background 0.4s ease;
     }
     .v-dots span.is-active {
       background: var(--neon);
       box-shadow: 0 0 8px var(--neon-soft);
     }
-    .visual-card:hover .v-dots { opacity: 0; }  /* step aside when caption rises */
-
-    /* Caption — hidden, slides up on hover / focus only */
+    /* Caption — its own block BELOW the frame, always visible, centered */
     .v-caption {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 1.5rem 1rem 0.9rem;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.4) 62%, transparent);
+      order: 3;
+      position: static;
+      inset: auto;
+      transform: none;
+      opacity: 1;
+      background: none;
+      padding: 0;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
       gap: 0.15rem;
-      transform: translateY(101%);
-      opacity: 0;
-      transition: transform 0.4s var(--ease-smooth), opacity 0.3s ease;
-      z-index: 5;
-    }
-    .visual-card:hover .v-caption,
-    .visual-card:focus-within .v-caption {
-      transform: translateY(0);
-      opacity: 1;
     }
     .v-caption .v-label {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 600;
       color: var(--text);
     }
     .v-caption .v-sub {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: var(--text-mute);
-      letter-spacing: 0.03em;
-    }
-
-    /* Touch devices: no hover — keep caption visible, keep dots visible */
-    @media (hover: none) {
-      .v-caption {
-        transform: none;
-        opacity: 1;
-      }
-      .visual-card .v-dots { opacity: 1; }
+      letter-spacing: 0.04em;
     }
 
     /* =========================================================
@@ -1385,10 +1372,7 @@
       outline-offset: 4px;
       border-radius: 4px;
     }
-  /* mobile safety: never allow sideways scroll */
-html, body { max-width: 100%; overflow-x: clip; }
-img, video, svg, table { max-width: 100%; }
-</style>
+  </style>
 </head>
 <body>
 
@@ -1453,9 +1437,7 @@ img, video, svg, table { max-width: 100%; }
         <article class="glass-card">
           <h3>The premise</h3>
           <p>
-            A Saudi-first trip-planning app organized around four familiar tabs — Home, Search, My Trips, and Profile —
-            so navigation stays effortless from the first tap. Underneath that simplicity, a system of offers,
-            reward points, and live customization quietly motivates users to plan more and come back.
+            A Saudi-first trip-planning app built around four familiar tabs — Home, Search, My Trips, and Profile — so navigation stays effortless. Underneath, a system of offers, reward points, and live customization keeps users planning and coming back.
           </p>
           <p>
             Visually it leans into Saudi identity: deep navy, warm magenta-to-orange gradients, and iconic destinations
@@ -1756,7 +1738,9 @@ img, video, svg, table { max-width: 100%; }
 
         <!-- 1 · Splash -->
         <article class="visual-card" tabindex="0">
-          <img class="v-shot" src="img/rehlaa-splash-1.png" alt="شاشة البداية — شعار رحلة وسلوقن السفر بأسلوب سعودي" loading="lazy">
+          <div class="v-stack">
+            <div class="v-slide is-active"><img class="v-shot" src="img/rehlaa-splash-1.png" alt="شاشة البداية — شعار رحلة وسلوقن السفر بأسلوب سعودي" loading="lazy"></div>
+          </div>
           <div class="v-caption">
             <span class="v-label">🚀 Splash · البداية</span>
             <span class="v-sub">شعار رحلة · السفر بأسلوب سعودي</span>
@@ -1765,7 +1749,9 @@ img, video, svg, table { max-width: 100%; }
 
         <!-- 2 · Onboarding -->
         <article class="visual-card" tabindex="0">
-          <img class="v-shot" src="img/rehlaa-onboarding-1.png" alt="شاشة الترحيب — مرحبًا بك في رحلة مع زر التالي والدخول كزائر" loading="lazy">
+          <div class="v-stack">
+            <div class="v-slide is-active"><img class="v-shot" src="img/rehlaa-onboarding-1.png" alt="شاشة الترحيب — مرحبًا بك في رحلة مع زر التالي والدخول كزائر" loading="lazy"></div>
+          </div>
           <div class="v-caption">
             <span class="v-label">👋 Onboarding · الترحيب</span>
             <span class="v-sub">مرحبًا بك في رحلة · ابدأ أو ادخل كزائر</span>
@@ -1774,7 +1760,9 @@ img, video, svg, table { max-width: 100%; }
 
         <!-- 3 · Login -->
         <article class="visual-card" tabindex="0">
-          <img class="v-shot" src="img/rehlaa-login-1.png" alt="شاشة تسجيل الدخول — بريد وكلمة مرور مع جوجل وآبل وفيسبوك" loading="lazy">
+          <div class="v-stack">
+            <div class="v-slide is-active"><img class="v-shot" src="img/rehlaa-login-1.png" alt="شاشة تسجيل الدخول — بريد وكلمة مرور مع جوجل وآبل وفيسبوك" loading="lazy"></div>
+          </div>
           <div class="v-caption">
             <span class="v-label">🔐 Login · تسجيل الدخول</span>
             <span class="v-sub">Google · Apple · Facebook</span>
@@ -1783,7 +1771,9 @@ img, video, svg, table { max-width: 100%; }
 
         <!-- 4 · Home -->
         <article class="visual-card" tabindex="0">
-          <img class="v-shot" src="img/rehlaa-home-1.png" alt="الشاشة الرئيسية — وسّع آفاقك والعروض والأكثر شيوعًا" loading="lazy">
+          <div class="v-stack">
+            <div class="v-slide is-active"><img class="v-shot" src="img/rehlaa-home-1.png" alt="الشاشة الرئيسية — وسّع آفاقك والعروض والأكثر شيوعًا" loading="lazy"></div>
+          </div>
           <div class="v-caption">
             <span class="v-label">🏠 Home · الرئيسية</span>
             <span class="v-sub">وسّع آفاقك · العروض · الأكثر شيوعًا</span>
@@ -1792,7 +1782,9 @@ img, video, svg, table { max-width: 100%; }
 
         <!-- 5 · Search -->
         <article class="visual-card" tabindex="0">
-          <img class="v-shot" src="img/rehlaa-search-1.png" alt="شاشة البحث — ابحث عن الرحلة مع فلاتر ثقافية وبحرية وشبكة رحلات" loading="lazy">
+          <div class="v-stack">
+            <div class="v-slide is-active"><img class="v-shot" src="img/rehlaa-search-1.png" alt="شاشة البحث — ابحث عن الرحلة مع فلاتر ثقافية وبحرية وشبكة رحلات" loading="lazy"></div>
+          </div>
           <div class="v-caption">
             <span class="v-label">🔎 Search · ابحث عن رحلة</span>
             <span class="v-sub">فلاتر · ثقافية تاريخية · بحرية</span>
@@ -1820,7 +1812,9 @@ img, video, svg, table { max-width: 100%; }
 
         <!-- 7 · Customize & book -->
         <article class="visual-card" tabindex="0">
-          <img class="v-shot" src="img/rehlaa-customize-1.png" alt="شاشة التخصيص — اختيار الوجهات والشواطئ والسعر بعد التخصيص وزر احجز الآن" loading="lazy">
+          <div class="v-stack">
+            <div class="v-slide is-active"><img class="v-shot" src="img/rehlaa-customize-1.png" alt="شاشة التخصيص — اختيار الوجهات والشواطئ والسعر بعد التخصيص وزر احجز الآن" loading="lazy"></div>
+          </div>
           <div class="v-caption">
             <span class="v-label">⚙️ Customize · التخصيص والحجز</span>
             <span class="v-sub">اختر وجهاتك · السعر يتحدّث · احجز الآن</span>
@@ -1829,7 +1823,9 @@ img, video, svg, table { max-width: 100%; }
 
         <!-- 8 · Account -->
         <article class="visual-card" tabindex="0">
-          <img class="v-shot" src="img/rehlaa-account-1.png" alt="شاشة الحساب — محمد فهد ومحفظة النقاط وطرق الدفع والإعدادات" loading="lazy">
+          <div class="v-stack">
+            <div class="v-slide is-active"><img class="v-shot" src="img/rehlaa-account-1.png" alt="شاشة الحساب — محمد فهد ومحفظة النقاط وطرق الدفع والإعدادات" loading="lazy"></div>
+          </div>
           <div class="v-caption">
             <span class="v-label">👤 Account · حسابي</span>
             <span class="v-sub">محفظة النقاط · طرق الدفع · الإعدادات</span>
